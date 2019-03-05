@@ -1,18 +1,82 @@
-getIDN {
-    out "*IDN?";
-    in "%\$1[^\r\n]";
-    ExtraInput = Ignore;
+Terminator = CR;
+
+setMode {
+    out "%{Q0|R0}";
+    in "%{Q0|R0}";
 }
 
-cmd {
-    out "\$1";
+getMeasureModeHeadA {
+    out "SR,HB,1";
+    in "SR,HB,1,%d";
 }
 
-setD {
-    out "\$1 %d";
+setMeasureModeHeadA {
+    out "SW,HB,1,%d";
+    in "SW,HB";
 }
-getD {
-    out "\$1?";
-    in "%d";
-    ExtraInput = Ignore;
+
+getMeasureModeHeadB {
+    out "SR,HB,2";
+    in "SR,HB,2,%d";
 }
+
+setMeasureModeHeadB {
+    out "SW,HB,2,%d";
+    in "SW,HB";
+}
+
+resetOutput1 {
+    out "VR,1";
+    in "VR";
+}
+
+resetOutput2 {
+    out "VR,2";
+    in "VR";
+}
+
+resetOutputBoth {
+    out "VR,0";
+    in "VR";
+}
+
+setOffsetOutput1 {
+    out "SW,OF,1,%f";
+    in "SW,OF";
+}
+
+getOffsetOutput1 {
+    out "SR,OF,1";
+    in "SR,OF,1,%f";
+}
+
+setOffsetOutput2 {
+    out "SW,OF,2,%f";
+    in "SW,OF";
+}
+
+getOffsetOutput2 {
+    out "SR,OF,2";
+    in "SR,OF,2,%f"
+}
+
+setOffsetOutputBoth {
+    out "SW,OF,0,%f";
+    in "SW,OF";
+}
+
+getValueOutput1 {
+    out "M1";
+    in "M1,%f";
+}
+
+getValueOutput2 {
+    out "M2";
+    in "M2,%f";
+}
+
+getValueOutputBoth {
+    out "M0";
+    in "M0,%(\$1\$2)f,%(\$1\$3)f"
+}
+

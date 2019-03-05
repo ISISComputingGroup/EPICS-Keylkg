@@ -17,3 +17,253 @@ record(bo, "$(P)DISABLE")
     field(ZNAM, "COMMS ENABLED")
     field(ONAM, "COMMS DISABLED")
 }
+
+record(bo, "$(P)MODE:SP")
+{
+    field(DESC, "Set device mode")
+    field(DTYP, "stream")
+    
+    field(ZNAM, "NORMAL")
+    field(ONAM, "COMMUNICATION")
+    
+    field(OUT, "@keylkg.proto setMode $(PORT)")
+}
+
+alias("$(P)MODE:SP", "$(P)MODE:SP:RBV")
+alias("$(P)MODE:SP", "$(P)MODE")
+
+record(mbbi, "$(P)MEASUREMODE:HEAD:A")
+{
+    field(DESC, "Current measurement mode for head A")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    
+    field(INP, "@keylkg.proto getMeasureModeHeadA $(PORT)")
+    
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
+{
+    field(DESC, "Set measurement mode for head A")
+    field(DTYP, "stream")
+    
+    field(OUT, "@keylkg.proto setMeasureModeHeadA $(PORT)")
+    
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+alias("$(P)MEASUREMODE:HEAD:A", "$(P)MEASUREMODE:HEAD:A:SP:RBV")
+
+record(mbbi, "$(P)MEASUREMODE:HEAD:B")
+{
+    field(DESC, "Current measurement mode for head B")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    
+    field(INP, "@keylkg.proto getMeasureModeHeadB $(PORT)")
+    
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
+{
+    field(DESC, "Set measurement mode for head B")
+    field(DTYP, "stream")
+    
+    field(OUT, "@keylkg.proto setMeasureModeHeadB $(PORT)")
+    
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+alias("$(P)MEASUREMODE:HEAD:B", "$(P)MEASUREMODE:HEAD:B:SP:RBV")
+
+record(bo, "$(P)RESET:OUTPUT:1:SP")
+{
+    field(DESC, "Reset signal output 1")
+    field(DTYP, "stream")
+    
+    field(OUT, "@keylkg.proto resetOutput1 $(PORT)")
+    
+    field(ZNAM, "")
+    field(ONAM, "RESET")
+    
+    field(SDIS, "$(P)MODE")
+}
+
+record(bo, "$(P)RESET:OUTPUT:2:SP")
+{
+    field(DESC, "Reset signal output 2")
+    field(DTYP, "stream")
+    
+    field(OUT, "@keylkg.proto resetOutput2 $(PORT)")
+    
+    field(ZNAM, "")
+    field(ONAM, "RESET")
+    
+    field(SDIS, "$(P)MODE")
+}
+
+record(bo, "$(P)RESET:OUTPUT:BOTH:SP")
+{
+    field(DESC, "Reset both signal outputs")
+    field(DTYP, "stream")
+    
+    field(OUT, "@keylkg.proto resetOutputBoth $(PORT)")
+    
+    field(ZNAM, "")
+    field(ONAM, "RESET")
+    
+    field(SDIS, "$(P)MODE")
+}
+
+record(ai, "$(P)OFFSET:OUTPUT:1")
+{
+    field(DESC, "Current Offset for signal: output 1")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    
+    field(INP, "@keylkg.proto getOffsetOutput1 $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+record(ao, "$(P)OFFSET:OUTPUT:1:SP")
+{
+    field(DESC, "Set offset for signal: output 1")
+    field(DTYP, "stream")
+    field(PREC, "4")
+    
+    field(OUT, "@keylkg.proto setOffsetOutput1 $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+alias("$(P)OFFSET:OUTPUT:1", "$(P)OFFSET:OUTPUT:1:SP:RBV")
+
+record(ai, "$(P)OFFSET:OUTPUT:2")
+{
+    field(DESC, "Current Offset for signal: output 2")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    
+    field(INP, "@keylkg.proto getOffsetOutput2 $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+record(ao, "$(P)OFFSET:OUTPUT:2:SP")
+{
+    field(DESC, "Set offset for signal: output 2")
+    field(DTYP, "stream")
+    field(PREC, "4")
+    
+    field(OUT, "@keylkg.proto setOffsetOutput2 $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+alias("$(P)OFFSET:OUTPUT:2", "$(P)OFFSET:OUTPUT:2:SP:RBV")
+
+record(ao, "$(P)OFFSET:OUTPUT:BOTH:SP")
+{
+    field(DESC, "Set offset for signal: both outputs")
+    field(DTYP, "stream")
+    field(PREC, "4")
+    
+    field(OUT, "@keylkg.proto setOffsetOutputBoth $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+    field(DISV, "0")
+}
+
+alias("$(P)OFFSET:OUTPUT:BOTH:SP", "$(P)OFFSET:OUTPUT:BOTH:SP:RBV")
+
+record(ai, "$(P)VALUE:OUTPUT:1")
+{
+    field(DESC, "Measurement value for output 1")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    
+    field(INP, "@keylkg.proto getValueOutput1 $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+}
+
+record(ai, "$(P)VALUE:OUTPUT:2")
+{
+    field(DESC, "Measurement value for output 2")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    
+    field(INP, "@keylkg.proto getValueOutput2 $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+}
+
+record(ai, "$(P)VALUE:OUTPUT:BOTH")
+{
+    field(DESC, "Measurement value for both outputs")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    
+    field(INP, "@keylkg.proto getValueOutputBoth($(P)VALUE:OUTPUT:,1,2) $(PORT)")
+    
+    field(SDIS, "$(P)MODE")
+}
+
+### SIMULATION RECORDS
+
+record(bi, "$(P)SIM:MODE")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:MODE","$(P)SIM:MODE:SP")
+alias("$(P)SIM:MODE","$(P)SIM:MODE:SP:RBV")
+
+record(bi, "$(P)SIM:RESET:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:RESET:SP", "$(P)SIM:RESET")
