@@ -18,15 +18,45 @@ record(bo, "$(P)DISABLE")
     field(ONAM, "COMMS DISABLED")
 }
 
+
+# The device has a set of commands that are available in its normal mode
+# and its measurement mode. These disable records are used to control what's
+# enabled and disabled depending on the mode. The DISABLE record supersedes
+# both of these however. 
+record(calc, "$(P)DISABLE-IF-COMM-MODE")
+{
+    field(DESC, "Disable record for communication mode")
+    field(INPA, "$(P)DISABLE CP")
+    field(INPB, "$(P)MODE CP")
+    
+    field(CALC, "(A=1)OR(B=1)?1:0")
+    field(ASG, "READONLY")
+}
+
+record(calc, "$(P)DISABLE-IF-NORM-MODE")
+{
+    field(DESC, "Disable record for normal mode")
+    field(INPA, "$(P)DISABLE CP")
+    field(INPB, "$(P)MODE CP")
+    
+    field(CALC, "(A=1)OR(B=0)?1:0")
+    field(ASG, "READONLY")
+}
+
 record(bo, "$(P)MODE:SP")
 {
     field(DESC, "Set device mode")
     field(DTYP, "stream")
     
-    field(ZNAM, "NORMAL")
-    field(ONAM, "COMMUNICATION")
+    field(ZNAM, "MEASURE")
+    field(ONAM, "SET-UP")
     
     field(OUT, "@keylkg.proto setMode $(PORT)")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MODE:SP")
+    field(SDIS, "$(P)DISABLE")
+    info(INTEREST, "HIGH")
+    info(alarm, "KEYLKG")
 }
 
 alias("$(P)MODE:SP", "$(P)MODE:SP:RBV")
@@ -46,8 +76,10 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:A")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A")
+    info(INTEREST, "HIGH")
 }
 
 record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
@@ -63,8 +95,10 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A:SP")
+    info(INTEREST, "HIGH")
 }
 
 alias("$(P)MEASUREMODE:HEAD:A", "$(P)MEASUREMODE:HEAD:A:SP:RBV")
@@ -83,8 +117,10 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:B")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B")
+    info(INTEREST, "HIGH")
 }
 
 record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
@@ -100,8 +136,10 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B:SP")
+    info(INTEREST, "HIGH")
 }
 
 alias("$(P)MEASUREMODE:HEAD:B", "$(P)MEASUREMODE:HEAD:B:SP:RBV")
@@ -116,7 +154,10 @@ record(bo, "$(P)RESET:OUTPUT:1:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
     
-    field(SDIS, "$(P)MODE")
+    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RESET:OUTPUT:1:SP")
+    info(INTEREST, "MEDIUM")
 }
 
 record(bo, "$(P)RESET:OUTPUT:2:SP")
@@ -129,7 +170,10 @@ record(bo, "$(P)RESET:OUTPUT:2:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
     
-    field(SDIS, "$(P)MODE")
+    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RESET:OUTPUT:2:SP")
+    info(INTEREST, "MEDIUM")
 }
 
 record(bo, "$(P)RESET:OUTPUT:BOTH:SP")
@@ -142,7 +186,10 @@ record(bo, "$(P)RESET:OUTPUT:BOTH:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
     
-    field(SDIS, "$(P)MODE")
+    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RESET:OUTPUT:BOTH:SP")
+    info(INTEREST, "MEDIUM")
 }
 
 record(ai, "$(P)OFFSET:OUTPUT:1")
@@ -151,11 +198,14 @@ record(ai, "$(P)OFFSET:OUTPUT:1")
     field(DTYP, "stream")
     field(SCAN, "1 second")
     field(PREC, "4")
+    field(EGU, "")
     
     field(INP, "@keylkg.proto getOffsetOutput1 $(PORT)")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1")
+    info(INTEREST, "HIGH")
 }
 
 record(ao, "$(P)OFFSET:OUTPUT:1:SP")
@@ -163,11 +213,16 @@ record(ao, "$(P)OFFSET:OUTPUT:1:SP")
     field(DESC, "Set offset for signal: output 1")
     field(DTYP, "stream")
     field(PREC, "4")
+    field(EGU, "")
+    field(DRVH, "99.9999")
+    field(DRVL, "-99.9999")
     
     field(OUT, "@keylkg.proto setOffsetOutput1 $(PORT)")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1:SP")
+    info(INTEREST, "HIGH")
 }
 
 alias("$(P)OFFSET:OUTPUT:1", "$(P)OFFSET:OUTPUT:1:SP:RBV")
@@ -178,11 +233,14 @@ record(ai, "$(P)OFFSET:OUTPUT:2")
     field(DTYP, "stream")
     field(SCAN, "1 second")
     field(PREC, "4")
+    field(EGU, "")
     
     field(INP, "@keylkg.proto getOffsetOutput2 $(PORT)")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2")
+    info(INTEREST, "HIGH")
 }
 
 record(ao, "$(P)OFFSET:OUTPUT:2:SP")
@@ -190,11 +248,16 @@ record(ao, "$(P)OFFSET:OUTPUT:2:SP")
     field(DESC, "Set offset for signal: output 2")
     field(DTYP, "stream")
     field(PREC, "4")
+    field(EGU, "")
+    field(DRVH, "99.9999")
+    field(DRVL, "-99.9999")
     
     field(OUT, "@keylkg.proto setOffsetOutput2 $(PORT)")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2:SP")
+    info(INTEREST, "HIGH")
 }
 
 alias("$(P)OFFSET:OUTPUT:2", "$(P)OFFSET:OUTPUT:2:SP:RBV")
@@ -204,11 +267,14 @@ record(ao, "$(P)OFFSET:OUTPUT:BOTH:SP")
     field(DESC, "Set offset for signal: both outputs")
     field(DTYP, "stream")
     field(PREC, "4")
+    field(EGU, "")
     
     field(OUT, "@keylkg.proto setOffsetOutputBoth $(PORT)")
     
-    field(SDIS, "$(P)MODE")
-    field(DISV, "0")
+    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:BOTH:SP")
+    info(INTEREST, "MEDIUM")
 }
 
 alias("$(P)OFFSET:OUTPUT:BOTH:SP", "$(P)OFFSET:OUTPUT:BOTH:SP:RBV")
@@ -217,39 +283,65 @@ record(ai, "$(P)VALUE:OUTPUT:1")
 {
     field(DESC, "Measurement value for output 1")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, ".5 second")
     field(PREC, "4")
+    field(EGU, "")
     
     field(INP, "@keylkg.proto getValueOutput1 $(PORT)")
     
-    field(SDIS, "$(P)MODE")
+    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:VALUE:OUTPUT:1")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ai, "$(P)VALUE:OUTPUT:2")
 {
     field(DESC, "Measurement value for output 2")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, ".5 second")
     field(PREC, "4")
+    field(EGU, "")
     
     field(INP, "@keylkg.proto getValueOutput2 $(PORT)")
     
-    field(SDIS, "$(P)MODE")
+    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:VALUE:OUTPUT:2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
 }
 
 record(ai, "$(P)VALUE:OUTPUT:BOTH")
 {
     field(DESC, "Measurement value for both outputs")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
     field(PREC, "4")
+    field(EGU, "")
     
     field(INP, "@keylkg.proto getValueOutputBoth($(P)VALUE:OUTPUT:,1,2) $(PORT)")
     
-    field(SDIS, "$(P)MODE")
+    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:VALUE:OUTPUT:BOTH")
+    info(INTEREST, "MEDIUM")
 }
 
-### SIMULATION RECORDS
+record(stringin, "$(P)ERROR:STR")
+{
+    field(DESC, "Input error return")
+	field(DTYP, "stream")
+	field(SCAN, "I/O Intr")
+    
+	field(INP, "@keylkg.proto readErrorString $(PORT)")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:ERROR:STR")
+    field(SDIS, "$(P)DISABLE")
+    info(INTEREST, "MEDIUM")
+}
+
+### SIMULATION RECORDS ###
 
 record(bi, "$(P)SIM:MODE")
 {
@@ -267,3 +359,96 @@ record(bi, "$(P)SIM:RESET:SP")
 }
 
 alias("$(P)SIM:RESET:SP", "$(P)SIM:RESET")
+
+
+
+record(mbbi,"$(P)SIM:MEASUREMODE:HEAD:B")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:MEASUREMODE:HEAD:B","$(P)SIM:MEASUREMODE:HEAD:B:SP")
+
+alias("$(P)SIM:MEASUREMODE:HEAD:B","$(P)SIM:MEASUREMODE:HEAD:B:SP:RBV")
+
+record(ao,"$(P)SIM:OFFSET:OUTPUT:BOTH:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:OFFSET:OUTPUT:BOTH:SP","$(P)SIM:OFFSET:OUTPUT:BOTH:SP:RBV")
+
+record(mbbi,"$(P)SIM:MEASUREMODE:HEAD:A")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:MEASUREMODE:HEAD:A","$(P)SIM:MEASUREMODE:HEAD:A:SP")
+
+alias("$(P)SIM:MEASUREMODE:HEAD:A","$(P)SIM:MEASUREMODE:HEAD:A:SP:RBV")
+
+record(ai,"$(P)SIM:OFFSET:OUTPUT:1")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:OFFSET:OUTPUT:1","$(P)SIM:OFFSET:OUTPUT:1:SP")
+
+alias("$(P)SIM:OFFSET:OUTPUT:1","$(P)SIM:OFFSET:OUTPUT:1:SP:RBV")
+
+record(ai,"$(P)SIM:OFFSET:OUTPUT:2")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:OFFSET:OUTPUT:2","$(P)SIM:OFFSET:OUTPUT:2:SP")
+
+alias("$(P)SIM:OFFSET:OUTPUT:2","$(P)SIM:OFFSET:OUTPUT:2:SP:RBV")
+
+record(bo,"$(P)SIM:RESET:OUTPUT:BOTH:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(ai,"$(P)SIM:VALUE:OUTPUT:1")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(bo,"$(P)SIM:RESET:OUTPUT:2:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(ai,"$(P)SIM:VALUE:OUTPUT:BOTH")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(stringin,"$(P)SIM:ERROR:STR")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(ai,"$(P)SIM:VALUE:OUTPUT:2")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(bo,"$(P)SIM:RESET:OUTPUT:1:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
