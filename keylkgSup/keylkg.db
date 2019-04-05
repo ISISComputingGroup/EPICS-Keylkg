@@ -23,7 +23,7 @@ record(bo, "$(P)DISABLE")
 # and its measurement mode. These disable records are used to control what's
 # enabled and disabled depending on the mode. The DISABLE record supersedes
 # both of these however. 
-record(calc, "$(P)DISABLE-IF-COMM-MODE")
+record(calc, "$(P)DISABLE_IF_COMM_MODE")
 {
     field(DESC, "Disable record for communication mode")
     field(INPA, "$(P)DISABLE CP")
@@ -33,7 +33,7 @@ record(calc, "$(P)DISABLE-IF-COMM-MODE")
     field(ASG, "READONLY")
 }
 
-record(calc, "$(P)DISABLE-IF-NORM-MODE")
+record(calc, "$(P)DISABLE_IF_NORM_MODE")
 {
     field(DESC, "Disable record for normal mode")
     field(INPA, "$(P)DISABLE CP")
@@ -76,7 +76,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:A")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A")
     info(INTEREST, "HIGH")
@@ -95,7 +95,7 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A:SP")
     info(INTEREST, "HIGH")
@@ -117,7 +117,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:B")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B")
     info(INTEREST, "HIGH")
@@ -136,7 +136,7 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B:SP")
     info(INTEREST, "HIGH")
@@ -154,7 +154,7 @@ record(bo, "$(P)RESET:OUTPUT:1:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
     
-    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:1:SP")
     info(INTEREST, "MEDIUM")
@@ -170,7 +170,7 @@ record(bo, "$(P)RESET:OUTPUT:2:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
     
-    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:2:SP")
     info(INTEREST, "MEDIUM")
@@ -186,7 +186,7 @@ record(bo, "$(P)RESET:OUTPUT:BOTH:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
     
-    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:BOTH:SP")
     info(INTEREST, "MEDIUM")
@@ -202,7 +202,7 @@ record(ai, "$(P)OFFSET:OUTPUT:1")
     
     field(INP, "@keylkg.proto getOffsetOutput1 $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1")
     info(INTEREST, "HIGH")
@@ -219,7 +219,7 @@ record(ao, "$(P)OFFSET:OUTPUT:1:SP")
     
     field(OUT, "@keylkg.proto setOffsetOutput1 $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1:SP")
     info(INTEREST, "HIGH")
@@ -237,7 +237,7 @@ record(ai, "$(P)OFFSET:OUTPUT:2")
     
     field(INP, "@keylkg.proto getOffsetOutput2 $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2")
     info(INTEREST, "HIGH")
@@ -254,7 +254,7 @@ record(ao, "$(P)OFFSET:OUTPUT:2:SP")
     
     field(OUT, "@keylkg.proto setOffsetOutput2 $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2:SP")
     info(INTEREST, "HIGH")
@@ -271,7 +271,7 @@ record(ao, "$(P)OFFSET:OUTPUT:BOTH:SP")
     
     field(OUT, "@keylkg.proto setOffsetOutputBoth $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-NORM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:BOTH:SP")
     info(INTEREST, "MEDIUM")
@@ -289,7 +289,7 @@ record(ai, "$(P)VALUE:OUTPUT:1")
     
     field(INP, "@keylkg.proto getValueOutput1 $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:1")
     info(INTEREST, "HIGH")
@@ -306,7 +306,7 @@ record(ai, "$(P)VALUE:OUTPUT:2")
     
     field(INP, "@keylkg.proto getValueOutput2 $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:2")
     info(INTEREST, "HIGH")
@@ -322,7 +322,7 @@ record(ai, "$(P)VALUE:OUTPUT:BOTH")
     
     field(INP, "@keylkg.proto getValueOutputBoth($(P)VALUE:OUTPUT:,1,2) $(PORT)")
     
-    field(SDIS, "$(P)DISABLE-IF-COMM-MODE")
+    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:BOTH")
     info(INTEREST, "MEDIUM")
