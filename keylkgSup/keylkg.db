@@ -28,7 +28,7 @@ record(calc, "$(P)DISABLE_IF_COMM_MODE")
     field(DESC, "Disable record for communication mode")
     field(INPA, "$(P)DISABLE CP")
     field(INPB, "$(P)MODE CP")
-    
+
     field(CALC, "(A=1)OR(B=1)?1:0")
     field(ASG, "READONLY")
 }
@@ -38,7 +38,7 @@ record(calc, "$(P)DISABLE_IF_NORM_MODE")
     field(DESC, "Disable record for normal mode")
     field(INPA, "$(P)DISABLE CP")
     field(INPB, "$(P)MODE CP")
-    
+
     field(CALC, "(A=1)OR(B=0)?1:0")
     field(ASG, "READONLY")
 }
@@ -47,10 +47,10 @@ record(bo, "$(P)MODE:SP")
 {
     field(DESC, "Set device mode")
     field(DTYP, "stream")
-    
+
     field(ZNAM, "MEASURE")
     field(ONAM, "SET-UP")
-    
+
     field(OUT, "@keylkg.proto setMode $(PORT)")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MODE:SP")
@@ -67,15 +67,15 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:A")
     field(DESC, "Current measurement mode for head A")
     field(DTYP, "stream")
     field(SCAN, "1 second")
-    
+
     field(INP, "@keylkg.proto getMeasureModeHeadA $(PORT)")
-    
+
     field(ZRST, "NORMAL")
     field(ONST, "TRANSLUCENT")
     field(TWST, "TRANSPARENT OBJ 1")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A")
@@ -86,15 +86,15 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
 {
     field(DESC, "Set measurement mode for head A")
     field(DTYP, "stream")
-    
+
     field(OUT, "@keylkg.proto setMeasureModeHeadA $(PORT)")
-    
+
     field(ZRST, "NORMAL")
     field(ONST, "TRANSLUCENT")
     field(TWST, "TRANSPARENT OBJ 1")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A:SP")
@@ -108,15 +108,15 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:B")
     field(DESC, "Current measurement mode for head B")
     field(DTYP, "stream")
     field(SCAN, "1 second")
-    
+
     field(INP, "@keylkg.proto getMeasureModeHeadB $(PORT)")
-    
+
     field(ZRST, "NORMAL")
     field(ONST, "TRANSLUCENT")
     field(TWST, "TRANSPARENT OBJ 1")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B")
@@ -127,15 +127,15 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
 {
     field(DESC, "Set measurement mode for head B")
     field(DTYP, "stream")
-    
+
     field(OUT, "@keylkg.proto setMeasureModeHeadB $(PORT)")
-    
+
     field(ZRST, "NORMAL")
     field(ONST, "TRANSLUCENT")
     field(TWST, "TRANSPARENT OBJ 1")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B:SP")
@@ -148,12 +148,12 @@ record(bo, "$(P)RESET:OUTPUT:1:SP")
 {
     field(DESC, "Reset signal output 1")
     field(DTYP, "stream")
-    
+
     field(OUT, "@keylkg.proto resetOutput1 $(PORT)")
-    
+
     field(ZNAM, "")
     field(ONAM, "RESET")
-    
+
     field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:1:SP")
@@ -164,12 +164,12 @@ record(bo, "$(P)RESET:OUTPUT:2:SP")
 {
     field(DESC, "Reset signal output 2")
     field(DTYP, "stream")
-    
+
     field(OUT, "@keylkg.proto resetOutput2 $(PORT)")
-    
+
     field(ZNAM, "")
     field(ONAM, "RESET")
-    
+
     field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:2:SP")
@@ -180,12 +180,12 @@ record(bo, "$(P)RESET:OUTPUT:BOTH:SP")
 {
     field(DESC, "Reset both signal outputs")
     field(DTYP, "stream")
-    
+
     field(OUT, "@keylkg.proto resetOutputBoth $(PORT)")
-    
+
     field(ZNAM, "")
     field(ONAM, "RESET")
-    
+
     field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:BOTH:SP")
@@ -199,9 +199,9 @@ record(ai, "$(P)OFFSET:OUTPUT:1")
     field(SCAN, "1 second")
     field(PREC, "4")
     field(EGU, "")
-    
+
     field(INP, "@keylkg.proto getOffsetOutput1 $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1")
@@ -216,9 +216,9 @@ record(ao, "$(P)OFFSET:OUTPUT:1:SP")
     field(EGU, "")
     field(DRVH, "99.9999")
     field(DRVL, "-99.9999")
-    
+
     field(OUT, "@keylkg.proto setOffsetOutput1 $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1:SP")
@@ -234,9 +234,9 @@ record(ai, "$(P)OFFSET:OUTPUT:2")
     field(SCAN, "1 second")
     field(PREC, "4")
     field(EGU, "")
-    
+
     field(INP, "@keylkg.proto getOffsetOutput2 $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2")
@@ -251,9 +251,9 @@ record(ao, "$(P)OFFSET:OUTPUT:2:SP")
     field(EGU, "")
     field(DRVH, "99.9999")
     field(DRVL, "-99.9999")
-    
+
     field(OUT, "@keylkg.proto setOffsetOutput2 $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2:SP")
@@ -268,9 +268,9 @@ record(ao, "$(P)OFFSET:OUTPUT:BOTH:SP")
     field(DTYP, "stream")
     field(PREC, "4")
     field(EGU, "")
-    
+
     field(OUT, "@keylkg.proto setOffsetOutputBoth $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:BOTH:SP")
@@ -286,9 +286,9 @@ record(ai, "$(P)VALUE:OUTPUT:1")
     field(SCAN, ".5 second")
     field(PREC, "4")
     field(EGU, "")
-    
+
     field(INP, "@keylkg.proto getValueOutput1 $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:1")
@@ -303,9 +303,9 @@ record(ai, "$(P)VALUE:OUTPUT:2")
     field(SCAN, ".5 second")
     field(PREC, "4")
     field(EGU, "")
-    
+
     field(INP, "@keylkg.proto getValueOutput2 $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:2")
@@ -319,9 +319,9 @@ record(ai, "$(P)VALUE:OUTPUT:BOTH")
     field(DTYP, "stream")
     field(PREC, "4")
     field(EGU, "")
-    
+
     field(INP, "@keylkg.proto getValueOutputBoth($(P)VALUE:OUTPUT:,1,2) $(PORT)")
-    
+
     field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:BOTH")
@@ -331,10 +331,10 @@ record(ai, "$(P)VALUE:OUTPUT:BOTH")
 record(stringin, "$(P)ERROR:STR")
 {
     field(DESC, "Input error return")
-	field(DTYP, "stream")
-	field(SCAN, "I/O Intr")
-    
-	field(INP, "@keylkg.proto readErrorString $(PORT)")
+    field(DTYP, "stream")
+    field(SCAN, "I/O Intr")
+
+    field(INP, "@keylkg.proto readErrorString $(PORT)")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:ERROR:STR")
     field(SDIS, "$(P)DISABLE")
