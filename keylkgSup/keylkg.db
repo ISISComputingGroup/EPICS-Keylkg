@@ -23,7 +23,7 @@ record(mbbi, "$(P)ERROR"){
     field(DESC, "Last error from input command.")
     field(DTYP, "Soft Channel")
 
-    field(VAL, "0")
+    field(VAL, "7")
 
     field(ZRVL, "0")
     field(ONVL, "1")
@@ -34,40 +34,16 @@ record(mbbi, "$(P)ERROR"){
     field(SXVL, "6")
     field(SVVL, "7")
 
-    field(ZRST, "No error")
-    field(ONST, "Command error")
-    field(TWST, "Status error")
-    field(THST, "Command length error")
-    field(FRST, "Parameter count error")
-    field(FVST, "Invalid parameters error")
-    field(SXST, "Timeout error")
-    field(SVST, "Other errors")
+    field(ZRST, "Command error")
+    field(ONST, "Status error")
+    field(TWST, "Command length error")
+    field(THST, "Parameter count error")
+    field(FRST, "Invalid parameters error")
+    field(FVST, "Timeout error")
+    field(SXST, "Other errors")
+    field(SVST, "No error")
 
     info(archive, "VAL")
-}
-
-# The device has a set of commands that are available in its normal mode
-# and its measurement mode. These disable records are used to control what's
-# enabled and disabled depending on the mode. The DISABLE record supersedes
-# both of these however. 
-record(calc, "$(P)DISABLE_IF_COMM_MODE")
-{
-    field(DESC, "Disable record for communication mode")
-    field(INPA, "$(P)DISABLE CP")
-    field(INPB, "$(P)MODE CP")
-
-    field(CALC, "(A=1)||(B=1)?1:0")
-    field(ASG, "READONLY")
-}
-
-record(calc, "$(P)DISABLE_IF_NORM_MODE")
-{
-    field(DESC, "Disable record for normal mode")
-    field(INPA, "$(P)DISABLE CP")
-    field(INPB, "$(P)MODE CP")
-
-    field(CALC, "(A=1)||(B=0)?1:0")
-    field(ASG, "READONLY")
 }
 
 record(bo, "$(P)MODE:SP")
@@ -78,13 +54,10 @@ record(bo, "$(P)MODE:SP")
     field(ZNAM, "MEASURE")
     field(ONAM, "SET-UP")
 
-    field(OSV, "MAJOR") # Alarm if in set-up mode and no data can be captured
-
     field(OUT, "@keylkg.proto setMode($(P),ERROR) $(PORT)")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MODE:SP")
     field(SDIS, "$(P)DISABLE")
-    info(INTEREST, "HIGH")
     info(archive, "VAL")
 }
 
@@ -105,7 +78,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:A")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A")
     info(INTEREST, "HIGH")
@@ -127,7 +100,7 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A:SP")
 }
@@ -148,7 +121,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:B")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B")
     info(INTEREST, "HIGH")
@@ -168,7 +141,7 @@ record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
     field(THST, "TRANSPARENT OBJ 2")
     field(FRST, "MULTI-REFLECTIVE")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B:SP")
 }
@@ -185,7 +158,7 @@ record(bo, "$(P)RESET:OUTPUT:1:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
 
-    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:1:SP")
 }
@@ -200,7 +173,7 @@ record(bo, "$(P)RESET:OUTPUT:2:SP")
     field(ZNAM, "")
     field(ONAM, "RESET")
 
-    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:RESET:OUTPUT:2:SP")
 }
@@ -215,7 +188,7 @@ record(ai, "$(P)OFFSET:OUTPUT:1")
 
     field(INP, "@keylkg.proto getOffsetOutput1($(P),ERROR) $(PORT)")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1")
     info(INTEREST, "HIGH")
@@ -233,7 +206,7 @@ record(ao, "$(P)OFFSET:OUTPUT:1:SP")
 
     field(OUT, "@keylkg.proto setOffsetOutput1($(P),ERROR) $(PORT)")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1:SP")
 }
@@ -250,7 +223,7 @@ record(ai, "$(P)OFFSET:OUTPUT:2")
 
     field(INP, "@keylkg.proto getOffsetOutput2($(P),ERROR) $(PORT)")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2")
     info(INTEREST, "HIGH")
@@ -268,7 +241,7 @@ record(ao, "$(P)OFFSET:OUTPUT:2:SP")
 
     field(OUT, "@keylkg.proto setOffsetOutput2($(P),ERROR) $(PORT)")
 
-    field(SDIS, "$(P)DISABLE_IF_NORM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2:SP")
 }
@@ -285,7 +258,7 @@ record(ai, "$(P)VALUE:OUTPUT:1")
 
     field(INP, "@keylkg.proto getValueOutput1($(P),ERROR) $(PORT)")
 
-    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:1")
     info(INTEREST, "HIGH")
@@ -302,7 +275,7 @@ record(ai, "$(P)VALUE:OUTPUT:2")
 
     field(INP, "@keylkg.proto getValueOutput2($(P),ERROR) $(PORT)")
 
-    field(SDIS, "$(P)DISABLE_IF_COMM_MODE")
+    field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:2")
     info(INTEREST, "HIGH")
