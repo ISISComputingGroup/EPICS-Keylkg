@@ -1,0 +1,377 @@
+record(bo, "$(P)SIM")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
+    field(VAL, "$(RECSIM=0)")
+    field(PINI, "YES")
+}
+
+record(bo, "$(P)DISABLE")
+{
+    field(DESC, "Disable comms")
+    field(PINI, "YES")
+    field(VAL, "$(DISABLE=0)")
+    field(OMSL, "supervisory")
+    field(ZNAM, "COMMS ENABLED")
+    field(ONAM, "COMMS DISABLED")
+}
+
+record(mbbi, "$(P)ERROR"){
+    field(SCAN, "Passive")
+    field(DESC, "Last error from input command.")
+    field(DTYP, "Soft Channel")
+
+    field(VAL, "7")
+
+    field(ZRVL, "0")
+    field(ONVL, "1")
+    field(TWVL, "2")
+    field(THVL, "3")
+    field(FRVL, "4")
+    field(FVVL, "5")
+    field(SXVL, "6")
+    field(SVVL, "7")
+
+    field(ZRST, "Command error")
+    field(ONST, "Status error")
+    field(TWST, "Command length error")
+    field(THST, "Parameter count error")
+    field(FRST, "Invalid parameters error")
+    field(FVST, "Timeout error")
+    field(SXST, "Other errors")
+    field(SVST, "No error")
+
+    info(archive, "VAL")
+}
+
+record(bo, "$(P)MODE:SP")
+{
+    field(DESC, "Set device mode")
+    field(DTYP, "stream")
+
+    field(ZNAM, "MEASURE")
+    field(ONAM, "SET-UP")
+
+    field(OUT, "@keylkg.proto setMode($(P),ERROR) $(PORT)")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MODE:SP")
+    field(SDIS, "$(P)DISABLE")
+    info(archive, "VAL")
+}
+
+alias("$(P)MODE:SP", "$(P)MODE:SP:RBV")
+alias("$(P)MODE:SP", "$(P)MODE")
+
+record(mbbi, "$(P)MEASUREMODE:HEAD:A")
+{
+    field(DESC, "Current measurement mode for head A")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+
+    field(INP, "@keylkg.proto getMeasureModeHeadA($(P),ERROR) $(PORT)")
+
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+
+    info(alarm, "KEYLKG")
+}
+
+record(mbbo, "$(P)MEASUREMODE:HEAD:A:SP")
+{
+    field(DESC, "Set measurement mode for head A")
+    field(DTYP, "stream")
+
+    field(OUT, "@keylkg.proto setMeasureModeHeadA($(P),ERROR) $(PORT)")
+
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:A:SP")
+}
+
+alias("$(P)MEASUREMODE:HEAD:A", "$(P)MEASUREMODE:HEAD:A:SP:RBV")
+
+record(mbbi, "$(P)MEASUREMODE:HEAD:B")
+{
+    field(DESC, "Current measurement mode for head B")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+
+    field(INP, "@keylkg.proto getMeasureModeHeadB($(P),ERROR) $(PORT)")
+
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(mbbo, "$(P)MEASUREMODE:HEAD:B:SP")
+{
+    field(DESC, "Set measurement mode for head B")
+    field(DTYP, "stream")
+
+    field(OUT, "@keylkg.proto setMeasureModeHeadB($(P),ERROR) $(PORT)")
+
+    field(ZRST, "NORMAL")
+    field(ONST, "TRANSLUCENT")
+    field(TWST, "TRANSPARENT OBJ 1")
+    field(THST, "TRANSPARENT OBJ 2")
+    field(FRST, "MULTI-REFLECTIVE")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:MEASUREMODE:HEAD:B:SP")
+}
+
+alias("$(P)MEASUREMODE:HEAD:B", "$(P)MEASUREMODE:HEAD:B:SP:RBV")
+
+record(bo, "$(P)RESET:OUTPUT:1:SP")
+{
+    field(DESC, "Reset signal output 1")
+    field(DTYP, "stream")
+
+    field(OUT, "@keylkg.proto resetOutput1($(P),ERROR) $(PORT)")
+
+    field(ZNAM, "")
+    field(ONAM, "RESET")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RESET:OUTPUT:1:SP")
+}
+
+record(bo, "$(P)RESET:OUTPUT:2:SP")
+{
+    field(DESC, "Reset signal output 2")
+    field(DTYP, "stream")
+
+    field(OUT, "@keylkg.proto resetOutput2($(P),ERROR) $(PORT)")
+
+    field(ZNAM, "")
+    field(ONAM, "RESET")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:RESET:OUTPUT:2:SP")
+}
+
+record(ai, "$(P)OFFSET:OUTPUT:1")
+{
+    field(DESC, "Current Offset for signal: output 1")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    field(EGU, "")
+
+    field(INP, "@keylkg.proto getOffsetOutput1($(P),ERROR) $(PORT)")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(ao, "$(P)OFFSET:OUTPUT:1:SP")
+{
+    field(DESC, "Set offset for signal: output 1")
+    field(DTYP, "stream")
+    field(PREC, "4")
+    field(EGU, "")
+    field(DRVH, "99.9999")
+    field(DRVL, "-99.9999")
+
+    field(OUT, "@keylkg.proto setOffsetOutput1($(P),ERROR) $(PORT)")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:1:SP")
+}
+
+alias("$(P)OFFSET:OUTPUT:1", "$(P)OFFSET:OUTPUT:1:SP:RBV")
+
+record(ai, "$(P)OFFSET:OUTPUT:2")
+{
+    field(DESC, "Current Offset for signal: output 2")
+    field(DTYP, "stream")
+    field(SCAN, "1 second")
+    field(PREC, "4")
+    field(EGU, "")
+
+    field(INP, "@keylkg.proto getOffsetOutput2($(P),ERROR) $(PORT)")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(ao, "$(P)OFFSET:OUTPUT:2:SP")
+{
+    field(DESC, "Set offset for signal: output 2")
+    field(DTYP, "stream")
+    field(PREC, "4")
+    field(EGU, "")
+    field(DRVH, "99.9999")
+    field(DRVL, "-99.9999")
+
+    field(OUT, "@keylkg.proto setOffsetOutput2($(P),ERROR) $(PORT)")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:OFFSET:OUTPUT:2:SP")
+}
+
+alias("$(P)OFFSET:OUTPUT:2", "$(P)OFFSET:OUTPUT:2:SP:RBV")
+
+record(ai, "$(P)VALUE:OUTPUT:1")
+{
+    field(DESC, "Measurement value for output 1")
+    field(DTYP, "stream")
+    field(SCAN, ".5 second")
+    field(PREC, "4")
+    field(EGU, "")
+
+    field(INP, "@keylkg.proto getValueOutput1($(P),ERROR) $(PORT)")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:VALUE:OUTPUT:1")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+record(ai, "$(P)VALUE:OUTPUT:2")
+{
+    field(DESC, "Measurement value for output 2")
+    field(DTYP, "stream")
+    field(SCAN, ".5 second")
+    field(PREC, "4")
+    field(EGU, "")
+
+    field(INP, "@keylkg.proto getValueOutput2($(P),ERROR) $(PORT)")
+
+    field(SDIS, "$(P)DISABLE")
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:VALUE:OUTPUT:2")
+    info(INTEREST, "HIGH")
+    info(archive, "VAL")
+}
+
+### SIMULATION RECORDS ###
+
+record(bi, "$(P)SIM:MODE")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:MODE","$(P)SIM:MODE:SP")
+alias("$(P)SIM:MODE","$(P)SIM:MODE:SP:RBV")
+
+record(bi, "$(P)SIM:RESET:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:RESET:SP", "$(P)SIM:RESET")
+
+
+
+record(mbbi,"$(P)SIM:MEASUREMODE:HEAD:B")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:MEASUREMODE:HEAD:B","$(P)SIM:MEASUREMODE:HEAD:B:SP")
+
+alias("$(P)SIM:MEASUREMODE:HEAD:B","$(P)SIM:MEASUREMODE:HEAD:B:SP:RBV")
+
+
+record(mbbi,"$(P)SIM:MEASUREMODE:HEAD:A")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:MEASUREMODE:HEAD:A","$(P)SIM:MEASUREMODE:HEAD:A:SP")
+
+alias("$(P)SIM:MEASUREMODE:HEAD:A","$(P)SIM:MEASUREMODE:HEAD:A:SP:RBV")
+
+record(ai,"$(P)SIM:OFFSET:OUTPUT:1")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:OFFSET:OUTPUT:1","$(P)SIM:OFFSET:OUTPUT:1:SP")
+
+alias("$(P)SIM:OFFSET:OUTPUT:1","$(P)SIM:OFFSET:OUTPUT:1:SP:RBV")
+
+record(ai,"$(P)SIM:OFFSET:OUTPUT:2")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+alias("$(P)SIM:OFFSET:OUTPUT:2","$(P)SIM:OFFSET:OUTPUT:2:SP")
+
+alias("$(P)SIM:OFFSET:OUTPUT:2","$(P)SIM:OFFSET:OUTPUT:2:SP:RBV")
+
+
+record(ai,"$(P)SIM:VALUE:OUTPUT:1")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(bo,"$(P)SIM:RESET:OUTPUT:2:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(stringin,"$(P)SIM:ERROR:STR")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(ai,"$(P)SIM:VALUE:OUTPUT:2")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
+record(bo,"$(P)SIM:RESET:OUTPUT:1:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
+
