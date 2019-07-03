@@ -5,13 +5,18 @@ error_code = "{00|01|20|21|22|88|99|=?}";
 measure = "R0";
 setup = "Q0";
 
+measure_mode {
+    out $measure; in $measure;
+}
+
 mistatch_handler {
     in "ER,%*s,%(\$1\$2)" $error_code;
+    measure_mode;
 }
 
 setMode {
-    out "%{Q0|R0}"; # {Set-Up Mode|Measure Mode}
-    in "%{Q0|R0}";
+    out "%{R0|Q0}"; # {Measure Mode|Set-Up Mode}
+    in "%{R0|Q0}";
     @init { out "R0"; in "%{Q0|R0}"; }
     @mismatch { mistatch_handler; }
 }
@@ -20,13 +25,14 @@ getMeasureModeHeadA {
     out "SR,HB,1";
     in "SR,HB,1,%d";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 setMeasureModeHeadA {
     out $setup; in $setup;
     out "SW,HB,1,%d";
     in "SW,HB";
-    out $measure; in $measure;
+    measure_mode;
     @mismatch { mistatch_handler; }
 }
 
@@ -34,13 +40,14 @@ getMeasureModeHeadB {
     out "SR,HB,2";
     in "SR,HB,2,%d";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 setMeasureModeHeadB {
     out $setup; in $setup;
     out "SW,HB,2,%d";
     in "SW,HB";
-    out $measure; in $measure;
+    measure_mode;
     @mismatch { mistatch_handler; }
 }
 
@@ -48,25 +55,28 @@ resetOutput1 {
     out "VR,1";
     in "VR";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 resetOutput2 {
     out "VR,2";
     in "VR";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 getOffsetOutput1 {
     out "SR,OF,1";
     in "SR,OF,1,%f";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 setOffsetOutput1 {
     out $setup; in $setup;
     out "SW,OF,1,%f";
     in "SW,OF";
-    out $measure; in $measure;
+    measure_mode;
     @mismatch { mistatch_handler; }
 }
 
@@ -74,13 +84,14 @@ getOffsetOutput2 {
     out "SR,OF,2";
     in "SR,OF,2,%f";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 setOffsetOutput2 {
     out $setup; in $setup;
     out "SW,OF,2,%f";
     in "SW,OF";
-    out $measure; in $measure;
+    measure_mode;
     @mismatch { mistatch_handler; }
 }
 
@@ -88,11 +99,13 @@ getValueOutput1 {
     out "M1";
     in "M1,%f";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
 getValueOutput2 {
     out "M2";
     in "M2,%f";
     @mismatch { mistatch_handler; }
+    @replytimeout { measure_mode; }
 }
 
