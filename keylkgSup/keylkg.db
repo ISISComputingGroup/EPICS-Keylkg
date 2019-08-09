@@ -25,15 +25,6 @@ record(mbbi, "$(P)ERROR"){
 
     field(VAL, "7")
 
-    field(ZRVL, "0")
-    field(ONVL, "1")
-    field(TWVL, "2")
-    field(THVL, "3")
-    field(FRVL, "4")
-    field(FVVL, "5")
-    field(SXVL, "6")
-    field(SVVL, "7")
-
     field(ZRST, "Command error")
     field(ONST, "Status error")
     field(TWST, "Command length error")
@@ -204,7 +195,8 @@ record(ao, "$(P)OFFSET:OUTPUT:1:SP")
     field(DRVH, "99.9999")
     field(DRVL, "-99.9999")
 
-    field(OUT, "@keylkg.proto setOffsetOutput1($(P),ERROR) $(PORT)")
+    #field(OUT, "@keylkg.proto setOffsetOutput1($(P),ERROR) $(PORT)")
+	field(FLNK, "$(P)_OFFSET:OUTPUT:1:RESIZE")
 
     field(SDIS, "$(P)DISABLE")
     field(SIML, "$(P)SIM")
@@ -212,6 +204,15 @@ record(ao, "$(P)OFFSET:OUTPUT:1:SP")
 }
 
 alias("$(P)OFFSET:OUTPUT:1", "$(P)OFFSET:OUTPUT:1:SP:RBV")
+
+record(calcout, "$(P)_OFFSET:OUTPUT:1:RESIZE")
+{
+	field(DESC, "Rescale offset 1")
+	field(DTYP, "stream")
+	field(INPA, "$(P)OFFSET:OUTPUT:1:SP")
+	field(CALC, "A * 10e3")
+	field(OUT, "@keylkg.proto setOffsetOutput1($(P),ERROR) $(PORT)")
+}
 
 record(ai, "$(P)OFFSET:OUTPUT:2")
 {
