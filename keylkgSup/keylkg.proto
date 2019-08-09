@@ -1,7 +1,5 @@
 Terminator = CR;
 
-error_code = "{00|01|20|21|22|88|99|=?}";
-
 measure = "R0";
 setup = "Q0";
 
