@@ -43,7 +43,7 @@ setMeasureModeHeadA {
     out "SW,HB,1,%d";
     in "SW,HB";
     measure_mode;
-	@init { getMeasureModeHeadA; }
+	#@init { getMeasureModeHeadA; }
     @mismatch { mistatch_handler; }
 }
 
@@ -52,7 +52,7 @@ setMeasureModeHeadB {
     out "SW,HB,2,%d";
     in "SW,HB";
     measure_mode;
-	@init { getMeasureModeHeadB; }
+	#@init { getMeasureModeHeadB; }
     @mismatch { mistatch_handler; }
 }
 
