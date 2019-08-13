@@ -30,20 +30,20 @@ getMeasureModeHeadA {
     @mismatch { mistatch_handler; }
 }
 
+getMeasureModeHeadB {
+	setup_mode;
+    out "SR,HB,2";
+    in "SR,HB,2,%d";
+	measure_mode;
+    @mismatch { mistatch_handler; }
+}
+
 setMeasureModeHeadA {
 	setup_mode;
     out "SW,HB,1,%d";
     in "SW,HB";
     measure_mode;
 	@init { getMeasureModeHeadA; }
-    @mismatch { mistatch_handler; }
-}
-
-getMeasureModeHeadB {
-	setup_mode;
-    out "SR,HB,2";
-    in "SR,HB,2,%d";
-	measure_mode;
     @mismatch { mistatch_handler; }
 }
 
