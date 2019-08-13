@@ -13,7 +13,7 @@ setup_mode {
 
 mistatch_handler {
     in "ER,%*2c,%(\$1\$2){00|01|20|21|22|88|99}";
-    measure_mode;
+    #measure_mode;
 }
 
 setMode {
@@ -43,7 +43,6 @@ setMeasureModeHeadA {
     out "SW,HB,1,%d";
     in "SW,HB";
     measure_mode;
-	#@init { getMeasureModeHeadA; }
     @mismatch { mistatch_handler; }
 }
 
@@ -52,7 +51,6 @@ setMeasureModeHeadB {
     out "SW,HB,2,%d";
     in "SW,HB";
     measure_mode;
-	#@init { getMeasureModeHeadB; }
     @mismatch { mistatch_handler; }
 }
 
