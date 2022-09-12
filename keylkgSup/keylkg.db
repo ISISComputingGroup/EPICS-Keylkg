@@ -59,7 +59,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:A")
 {
     field(DESC, "Current measurement mode for head A")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "2 second")
 
     field(INP, "@keylkg.proto getMeasureModeHeadA($(P),ERROR) $(PORT)")
 
@@ -102,7 +102,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:B")
 {
     field(DESC, "Current measurement mode for head B")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "2 second")
 
     field(INP, "@keylkg.proto getMeasureModeHeadB($(P),ERROR) $(PORT)")
 
@@ -173,7 +173,7 @@ record(ai, "$(P)OFFSET:OUTPUT:1")
 {
     field(DESC, "Current Offset for signal: output 1")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "2 second")
     field(PREC, "4")
     field(EGU, "")
 
@@ -216,7 +216,7 @@ record(ai, "$(P)OFFSET:OUTPUT:2")
 {
     field(DESC, "Current Offset for signal: output 2")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "2 second")
     field(PREC, "4")
     field(EGU, "")
 
@@ -259,7 +259,7 @@ record(ai, "$(P)VALUE:OUTPUT:1")
 {
     field(DESC, "Measurement value for output 1")
     field(DTYP, "stream")
-    field(SCAN, ".5 second")
+    field(SCAN, "2 second")
     field(PREC, "4")
     field(EGU, "")
 
@@ -276,7 +276,7 @@ record(ai, "$(P)VALUE:OUTPUT:2")
 {
     field(DESC, "Measurement value for output 2")
     field(DTYP, "stream")
-    field(SCAN, ".5 second")
+    field(SCAN, "2 second")
     field(PREC, "4")
     field(EGU, "")
 
