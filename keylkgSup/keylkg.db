@@ -319,6 +319,7 @@ record(mbbo, "$(P)SCAN:SP")
     field(SIML, "$(P)SIM")
     field(SIOL, "$(P)SIM:SCAN:SP")
     field(SDIS, "$(P)DISABLE")
+    info(autosaveFields, "VAL")
 }
 
 ### SIMULATION RECORDS ###
