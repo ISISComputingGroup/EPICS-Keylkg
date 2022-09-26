@@ -59,7 +59,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:A")
 {
     field(DESC, "Current measurement mode for head A")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "5 second")
 
     field(INP, "@keylkg.proto getMeasureModeHeadA($(P),ERROR) $(PORT)")
 
@@ -102,7 +102,7 @@ record(mbbi, "$(P)MEASUREMODE:HEAD:B")
 {
     field(DESC, "Current measurement mode for head B")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "5 second")
 
     field(INP, "@keylkg.proto getMeasureModeHeadB($(P),ERROR) $(PORT)")
 
@@ -173,7 +173,7 @@ record(ai, "$(P)OFFSET:OUTPUT:1")
 {
     field(DESC, "Current Offset for signal: output 1")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "5 second")
     field(PREC, "4")
     field(EGU, "")
 
@@ -216,7 +216,7 @@ record(ai, "$(P)OFFSET:OUTPUT:2")
 {
     field(DESC, "Current Offset for signal: output 2")
     field(DTYP, "stream")
-    field(SCAN, "1 second")
+    field(SCAN, "5 second")
     field(PREC, "4")
     field(EGU, "")
 
@@ -287,6 +287,38 @@ record(ai, "$(P)VALUE:OUTPUT:2")
     field(SIOL, "$(P)SIM:VALUE:OUTPUT:2")
     info(INTEREST, "HIGH")
     info(archive, "VAL")
+}
+
+record(seq, "$(P)SCAN")
+{
+    field(DOL0, "$(P)SCAN:SP.RVAL")
+    field(DOL1, "$(P)SCAN:SP.RVAL")
+    field(DOL2, "$(P)SCAN:SP.RVAL")
+    field(DOL3, "$(P)SCAN:SP.RVAL")
+    field(LNK0, "$(P)OFFSET:OUTPUT:1.SCAN")
+    field(LNK1, "$(P)OFFSET:OUTPUT:2.SCAN")
+    field(LNK2, "$(P)MEASUREMODE:HEAD:A.SCAN")
+    field(LNK3, "$(P)MEASUREMODE:HEAD:B.SCAN")
+    field(SELM, "All")
+}
+
+record(mbbo, "$(P)SCAN:SP")
+{
+    field(OUT, "$(P)SCAN PP")
+    field(DTYP, "Raw Soft Channel")
+    
+    field(ZRVL, "4")
+    field(ONVL, "0")
+    
+    field(ZRST, "5 second")
+    field(ONST, "Passive")
+    
+    field(VAL, "0")
+    field(PINI, "YES")
+    
+    field(SIML, "$(P)SIM")
+    field(SIOL, "$(P)SIM:SCAN:SP")
+    field(SDIS, "$(P)DISABLE")
 }
 
 ### SIMULATION RECORDS ###
@@ -382,3 +414,8 @@ record(bo,"$(P)SIM:RESET:OUTPUT:1:SP")
     field(DTYP, "Soft Channel")
 }
 
+record(mbbo, "$(P)SIM:SCAN:SP")
+{
+    field(SCAN, "Passive")
+    field(DTYP, "Soft Channel")
+}
