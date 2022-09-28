@@ -316,9 +316,6 @@ record(mbbo, "$(P)SCAN:SP")
     field(VAL, "0")
     field(PINI, "YES")
     
-    field(SIML, "$(P)SIM")
-    field(SIOL, "$(P)SIM:SCAN:SP")
-    field(SDIS, "$(P)DISABLE")
     info(autosaveFields, "VAL")
 }
 
@@ -410,12 +407,6 @@ record(ai,"$(P)SIM:VALUE:OUTPUT:2")
 }
 
 record(bo,"$(P)SIM:RESET:OUTPUT:1:SP")
-{
-    field(SCAN, "Passive")
-    field(DTYP, "Soft Channel")
-}
-
-record(mbbo, "$(P)SIM:SCAN:SP")
 {
     field(SCAN, "Passive")
     field(DTYP, "Soft Channel")
